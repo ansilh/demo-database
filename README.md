@@ -1,0 +1,8 @@
+- Evns
+MYSQL_ROOT_PASSWORD
+MYSQL_DATABASE
+MYSQL_USER
+MYSQL_PASSWORD
+
+- DB path
+/var/lib/mysql
