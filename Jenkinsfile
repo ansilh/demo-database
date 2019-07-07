@@ -33,10 +33,10 @@ spec:
 {
     node(label) {
         stage('Build') {
-                    git 'https://github.com/ansilh/demo-frontend.git'
+                    git 'https://github.com/ansilh/demo-database.git'
                         container('docker'){
                             docker.withRegistry('https://' + registry_url,'registry'){
-                            def dockerImage = docker.build("frontend:${BUILD_NUMBER}")
+                            def dockerImage = docker.build("database:${BUILD_NUMBER}")
                             dockerImage.push()
                         }
                     }
@@ -44,7 +44,7 @@ spec:
         stage('Scan') {
                sh 'pwd > workspace'
                 workspace = readFile('workspace').trim()
-                def imageLine =  registry_url + "/frontend:${BUILD_NUMBER} " + workspace + "/Dockerfile"
+                def imageLine =  registry_url + "/database:${BUILD_NUMBER} " + workspace + "/Dockerfile"
                 writeFile file: 'anchore_images', text: imageLine
                 sh 'cat anchore_images'
                 anchore name: 'anchore_images'
