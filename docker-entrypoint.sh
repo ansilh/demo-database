@@ -1,7 +1,9 @@
 #!/bin/bash
+
 set -eo pipefail
 shopt -s nullglob
-
+set -x ;
+set -o functrace
 # if command starts with an option, prepend mysqld
 if [ "${1:0:1}" = '-' ]; then
 	set -- mysqld "$@"
