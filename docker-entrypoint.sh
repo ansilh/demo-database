@@ -168,11 +168,13 @@ if [ "$1" = 'mysqld' -a -z "$wantHelp" ]; then
 
 		file_env 'MYSQL_USER'
 		file_env 'MYSQL_PASSWORD'
-		if [ "$MYSQL_USER" -a "$MYSQL_PASSWORD" ]; then
-			echo "CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD' ;" | "${mysql[@]}"
+		# Added to support MediaWiki scripted installer 
+		file_env 'MYSQL_SVC'
+		if [ "$MYSQL_USER" -a "$MYSQL_PASSWORD" -a "$MYSQL_SVC" ]; then
+			echo "CREATE USER '$MYSQL_USER'@'$MYSQL_SVC' IDENTIFIED BY '$MYSQL_PASSWORD' ;" | "${mysql[@]}"
 
 			if [ "$MYSQL_DATABASE" ]; then
-				echo "GRANT ALL ON \`$MYSQL_DATABASE\`.* TO '$MYSQL_USER'@'%' ;" | "${mysql[@]}"
+				echo "GRANT ALL ON \`$MYSQL_DATABASE\`.* TO '$MYSQL_USER'@'$MYSQL_SVC' ;" | "${mysql[@]}"
 			fi
 		fi
 
