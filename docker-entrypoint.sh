@@ -171,10 +171,10 @@ if [ "$1" = 'mysqld' -a -z "$wantHelp" ]; then
 		# Added to support MediaWiki scripted installer 
 		file_env 'MYSQL_SVC'
 		if [ "$MYSQL_USER" -a "$MYSQL_PASSWORD" -a "$MYSQL_SVC" ]; then
-			echo "CREATE USER '$MYSQL_USER'@'$MYSQL_SVC' IDENTIFIED BY '$MYSQL_PASSWORD' ;" | "${mysql[@]}"
+		#	echo "CREATE USER '$MYSQL_USER'@'$MYSQL_SVC' IDENTIFIED BY '$MYSQL_PASSWORD' ;" | "${mysql[@]}"
 
 			if [ "$MYSQL_DATABASE" ]; then
-				echo "GRANT ALL ON \`$MYSQL_DATABASE\`.* TO '$MYSQL_USER'@'$MYSQL_SVC' ;" | "${mysql[@]}"
+				echo "GRANT ALL PRIVILEGES ON \`$MYSQL_DATABASE\`.* TO '$MYSQL_USER'@'$MYSQL_SVC' IDENTIFIED BY '$MYSQL_PASSWORD' ;" | "${mysql[@]}"
 			fi
 		fi
 
